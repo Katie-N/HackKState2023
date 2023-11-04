@@ -2,6 +2,8 @@
   <div id="app">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     <h1>Hello World</h1>
+    <router-link to="/electricGuitarLevel">ElectricGuitarLevel</router-link>
+    <router-view id="routerView"></router-view>
   </div>
 </template>
 
@@ -26,3 +28,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  #routerView {    
+    height: 100vh;
+  }
+</style>
