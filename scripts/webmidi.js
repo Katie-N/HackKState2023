@@ -1,5 +1,4 @@
 <script type="module">
-
   // Enable WEBMIDI.js and trigger the onEnabled() function when ready
   WebMidi
     .enable()
@@ -8,17 +7,13 @@
 
   // Function triggered when WEBMIDI.js is ready
   function onEnabled() {
-
     // Display available MIDI input devices
     if (WebMidi.inputs.length < 1) {
-      console.log("No device Detected");
       document.body.innerHTML+= "No device detected.";
     } else {
       WebMidi.inputs.forEach((device, index) => {
         document.body.innerHTML+= `${index}: ${device.name} <br>`;
       });
     }
-
   }
-
 </script>
