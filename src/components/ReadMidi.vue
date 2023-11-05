@@ -1,40 +1,54 @@
-<script type="text/javascript">
+<template>
+  <main>
+    <h1>Hi</h1>
+    <button @click="main">Start Audio</button>
+  </main>
+</template>
 
-		Midi.fromUrl("./bach_846.mid").then(midi => {
+<script>
+import { Midi } from '@tonejs/midi';
+import * as Tone from 'tone';
 
-			document.querySelector('tone-play-toggle').removeAttribute('disabled')
-			document.querySelector('#Status').textContent = ''
+export default {
+  data() {
+    return {
+      // This is the midi json we will compare user input to.
+      truthMidiJson: null,
+    }
+  },
+  methods: {
+    main() {
+      fetch('/src/assets/abbamidi.json')
+      .then((response) => response.json())
+      .then((json) => {
+        this.readMidi(json);
+      });
+    },
+    readMidi(midi) {
+      this.truthMidiJson = midi;
+      console.log(midi);
+      console.log(Tone.now())
 
-			//synth playback
-			const synths = []
-			document.querySelector('tone-play-toggle').addEventListener('play', (e) => {
-				const playing = e.detail
-				if (playing) {
-					const now = Tone.now() + 0.5
-					midi.tracks.forEach(track => {
-						//create a synth for each track
-						const synth = new Tone.PolySynth(10, Tone.Synth, {
-							envelope: {
-								attack: 0.02,
-								decay: 0.1,
-								sustain: 0.3,
-								release: 1
-							}
-						}).toMaster()
-						synths.push(synth)
-						//schedule all of the events
-						track.notes.forEach(note => {
-							synth.triggerAttackRelease(note.name, note.duration, note.time + now, note.velocity)
-						})
-					})
-				} else {
-					//dispose the synth and make a new one
-					while (synths.length) {
-						const synth = synths.shift()
-						synth.dispose()
-					}
-				}
-			})
-		})
-
-	</script>
+    	const synths = [];
+      const now = Tone.now() + 0.5;
+      midi.tracks.forEach(track => {
+        //create a synth for each track
+        const synth = new Tone.PolySynth().toDestination();
+        synth.set({
+          envelope: {
+            attack: 0.02,
+            decay: 0.1,
+            sustain: 0.3,
+            release: 1
+          }
+        });
+        synths.push(synth)
+        //schedule all of the events
+        track.notes.forEach(note => {
+          synth.triggerAttackRelease(note.name, note.duration, note.time + now - 23.287499999999998, note.velocity)
+        })
+      })
+    },
+  }
+}
+</script>
