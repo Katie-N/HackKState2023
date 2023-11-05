@@ -28,12 +28,32 @@ export default {
   methods: {
     main () {
       const mySynth = WebMidi.inputs[0];
+      let referenceNote = [];
+
+      //setTimeout(console.log("poopies"), 100000);
+      //let parsedJSON;
+      fetch('/src/assets/abbamidi.json')
+        .then((response) => response.json())
+        .then((json) => {
+          console.log("JSON:", json);
+          //parsedJSON = json;
+          let notes = json.tracks[0].notes;
+          notes.forEach (note => {
+            console.log(note.name);
+            let duration = note.duration;
+          });
+          
+          let noted = notes.name;
+              //notes.forEach(time => { 
+              // setTimeout(console.log (noted , duration + 5000))}); 
+        });     
+        
       mySynth.channels[1].addListener("noteon", e => {
-        console.log(e.note.name);
-      });
-      console.log(mySynth);
-      
+          if (e.note.name == referenceNote) {
+            console.log(e.note.name);
+          }
+        }); 
     },
-  }
+  },
 }
 </script>
