@@ -1,5 +1,12 @@
 <template>
   <main>
+    <!-- <canvas id="gameScreen">
+    </canvas> -->
+    <canvas id="gameplayCanvas" width="600" height="400">
+    </canvas>
+    <img id="pianoKeySpritesheet" class="hidden" src="/src/assets/pianoKeySpritesheetXL.png" alt="">
+    <img id="pianoSprite" class="hidden" src="/src/assets/pianoSprite.png" alt="">
+
     <div id="playerInstrumentContainer">
       <h1 id="bossLabel" class="label">Player</h1>
       <img id="playerInstrument" src="/src/assets/piano.png" alt="">
@@ -12,7 +19,58 @@
   </main>
 </template>
 
+<script type="text/javascript">
+import { PianoKeyClass } from "/scripts/PianoKeyClass.js";
+import { PianoClass } from "/scripts/PianoClass.js";
+import { InputHandlerClass } from "/scripts/InputHandlerClass.js";
+
+export default {
+  data() {
+    return {
+      screenWidth: null,
+      screenHeight: null,
+    }
+  },
+  mounted() {
+    // The load event listener is necessary because it ensures all of the images have been fully loaded into the DOM.
+    window.addEventListener("load", e => {
+      this.main();
+    });
+  },
+  methods: {
+    main() {
+      let canvas = document.getElementById("gameplayCanvas");
+      let ctx = canvas.getContext("2d");
+      this.setupCanvas(canvas);
+      console.log("canv canv");
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        requestAnimationFrame(animate);
+      }
+      // Start animation
+      // animate();
+
+      let handler = new InputHandlerClass;
+      let piano = new PianoClass(canvas.width, canvas.height);
+      piano.draw(ctx);
+      let pianoKey = new PianoKeyClass(canvas.width, canvas.height);
+      pianoKey.draw(ctx);
+    },
+    setupCanvas(canvas) {
+      canvas.width = window.innerWidth * 0.8;
+      canvas.height = window.innerHeight;
+      console.log("Canvas width", canvas.width);
+    },
+  }
+}
+</script>
+
 <style scoped>
+.hidden {
+  display: none;
+}
+
 main {
   /* Background */
   background-image: url(/src/assets/pianoHall.png);
@@ -64,11 +122,30 @@ main {
     9px 7px 1px var(--highlight-color);
 }
 
-#playerLabel {
 
+#gameplay { /* Unused */
+  /* Display */
+  width: 85vw;
+  height: 85vh;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: #6e4736;
+  background-image: url(/src/assets/pianoCloseup.png);
+  background-position: center;
+  background-size: cover;
 }
 
-#enemyLabel {
+#gameplayCanvas {
+  position: absolute;
 
+  bottom:0;
+  left:0;
+  right:0;
+  margin: auto;
+  z-index: 10;
 }
 </style>
