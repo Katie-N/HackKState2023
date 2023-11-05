@@ -7,17 +7,17 @@ export class PianoClass {
     this.gameHeight = gameHeight;
 
     // Size of the entire Piano sprite
-    this.width = 217;
-    this.height = 155;
+    this.width = 850;
+    this.height = 436;
 
     // Initialize location
     // starting x position such that the piano is centered: (this.gameWidth / 2) - (this.width / 2) * this.scale
-    this.scale = 2;
+    this.scale = 0.75;
     this.x = (this.gameWidth / 2) - (this.width / 2) * this.scale;
     // Start at the bottom of the canvas.
     this.y = this.gameHeight - (this.height * this.scale);
 
-    this.image = document.getElementById("pianoSprite");
+    this.image = document.getElementById("keyboardSprite");
     // this.frameX = 0;
 
     this.draw = function(context) {

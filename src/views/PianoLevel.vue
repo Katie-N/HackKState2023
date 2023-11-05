@@ -2,10 +2,10 @@
   <main>
     <!-- <canvas id="gameScreen">
     </canvas> -->
-    <canvas id="gameplayCanvas" width="600" height="400">
+    <canvas id="gameplayCanvas">
     </canvas>
-    <img id="pianoKeySpritesheet" class="hidden" src="/src/assets/pianoKeySpritesheetXL.png" alt="">
-    <img id="pianoSprite" class="hidden" src="/src/assets/pianoSprite.png" alt="">
+    <img id="keyboardSprite" class="hidden" src="/src/assets/keyboardSprite.png" alt="">
+    <img id="keyboardKeysSprite" class="hidden" src="/src/assets/keyboardKeysSpritesheet.png" alt="">
 
     <div id="playerInstrumentContainer">
       <h1 id="bossLabel" class="label">Player</h1>
@@ -58,7 +58,7 @@ export default {
       pianoKey.draw(ctx);
     },
     setupCanvas(canvas) {
-      canvas.width = window.innerWidth * 0.8;
+      canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       console.log("Canvas width", canvas.width);
     },

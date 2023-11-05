@@ -14,9 +14,6 @@ import { WebMidi } from 'webmidi'
 
 export default {
   name: 'App',
-  // components: {
-  //   ReadMidi
-  // },
   mounted() {
     WebMidi
       .enable()
