@@ -30,7 +30,7 @@ export default {
       const mySynth = WebMidi.inputs[0];
       let referenceNote = [];
 
-      //setTimeout(console.log("poopies"), 100000);
+      setTimeout(() =>console.log("Bongo"), 5000);
       //let parsedJSON;
       fetch('/src/assets/abbamidi.json')
         .then((response) => response.json())
@@ -38,16 +38,33 @@ export default {
           console.log("JSON:", json);
           //parsedJSON = json;
           let notes = json.tracks[0].notes;
-          notes.forEach (note => {
-            console.log(note.name);
-            let duration = note.duration;
-          });
+          let n= 0;
+          function mango() {
+            let noteValue = 
+            notes[n].name;
+
+            let duration = notes[n].duration;
+            n = n+1;
+            console.log(mango(noteValue));
+          }
+
+
+          /*notes.forEach (note => {
+            console.log(note.duration);
+            let duration = note.duration; 
+            setTimeout(() => {console.log (note.name)}, duration*1000 + 5000)
+            
+            // clearTimeout(bongo);
+            // Array for setting time
+
+
+          });*/
           
-          let noted = notes.name;
+          
               //notes.forEach(time => { 
-              // setTimeout(console.log (noted , duration + 5000))}); 
+               
         });     
-        
+
       mySynth.channels[1].addListener("noteon", e => {
           if (e.note.name == referenceNote) {
             console.log(e.note.name);
