@@ -1,19 +1,14 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <h1>Hello World</h1>
+    <router-view id="routerView"></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import { WebMidi } from 'webmidi'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  },
   mounted() {
     WebMidi
       .enable()
@@ -26,3 +21,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  #routerView {
+    height: 100vh;
+  }
+</style>
